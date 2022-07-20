@@ -1,13 +1,15 @@
 /*
     Jakub Żojdzik
-    20-07-2022
+    --DATE--
 */
 
 #include <bits/stdc++.h>
 #ifdef LOCAL
 #include "debug.hpp"
+#define dt cout << "HERE!\n"
 #else
 #define debug(...)
+#define dt
 #endif
 using namespace std;
 
@@ -21,9 +23,8 @@ typedef vector<int> vi;
 #define se second
 #define pb push_back
 #define all(x) x.begin(), x.end()
-#define dt cout << "HERE!\n"
 #define nl cout << '\n'
-    
+
 int main()
 {
     cout.tie(0);
