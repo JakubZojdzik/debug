@@ -1,5 +1,14 @@
 #include <iostream>
 
+template <typename T, typename V>
+void __print(const std::pair<T, V> &x);
+
+template <typename T>
+void __print(const T &x);
+
+template <typename T, typename... V>
+void _print(T t, V... v);
+
 void __print(int x) { std::cerr << x; }
 void __print(long x) { std::cerr << x; }
 void __print(long long x) { std::cerr << x; }
