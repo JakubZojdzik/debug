@@ -50,10 +50,9 @@ void _print(T t, V... v)
         std::cerr << ", ";
     _print(v...);
 }
-#ifndef ONLINE_JUDGE
+
 #define debug(x...)                    \
     std::cerr << "[" << #x << "] = ["; \
     _print(x)
-#else
-#define debug(x...)
-#endif
+
+#define dt cout << "HERE!\n";
