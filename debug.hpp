@@ -3,6 +3,18 @@
 template <typename T, typename V>
 void __print(const std::pair<T, V> &x);
 
+template <typename... T>
+void __print(const std::tuple<T...> &x);
+
+template <typename T>
+void __print(std::stack<T> x);
+
+template <typename T>
+void __print(std::queue<T> x);
+
+template <typename T, typename... V>
+void __print(std::priority_queue<T, V...> x);
+
 template <typename T>
 void __print(const T &x);
 
@@ -32,6 +44,61 @@ void __print(const std::pair<T, V> &x)
     __print(x.second);
     std::cerr << '}';
 }
+
+template <typename... T>
+void __print(const std::tuple<T...> &x)
+{
+    bool first = true;
+    std::cerr << '{';
+    apply(
+        [&first](const auto &...args)
+        {
+            ((std::cerr << (first ? "" : ", "), __print(args), first = false), ...);
+        },
+        x);
+    std::cerr << '}';
+}
+
+template <typename T>
+void __print(std::stack<T> x)
+{
+    std::vector<T> debugVector;
+    while (!x.empty())
+    {
+        T t = x.top();
+        debugVector.push_back(t);
+        x.pop();
+    }
+    reverse(debugVector.begin(), debugVector.end());
+    __print(debugVector);
+}
+
+template <typename T>
+void __print(std::queue<T> x)
+{
+    std::vector<T> debugVector;
+    while (!x.empty())
+    {
+        T t = x.front();
+        debugVector.push_back(t);
+        x.pop();
+    }
+    __print(debugVector);
+}
+
+template <typename T, typename... V>
+void __print(std::priority_queue<T, V...> x)
+{
+    std::vector<T> debugVector;
+    while (!x.empty())
+    {
+        T t = x.top();
+        debugVector.push_back(t);
+        x.pop();
+    }
+    __print(debugVector);
+}
+
 template <typename T>
 void __print(const T &x)
 {
@@ -41,7 +108,8 @@ void __print(const T &x)
         std::cerr << (f++ ? ", " : ""), __print(i);
     std::cerr << "}";
 }
-void _print() { std::cerr << "]\n"; }
+
+void _print() { std::cerr << "\n"; }
 template <typename T, typename... V>
 void _print(T t, V... v)
 {
@@ -51,8 +119,4 @@ void _print(T t, V... v)
     _print(v...);
 }
 
-#define debug(x...)                    \
-    std::cerr << "[" << #x << "] = ["; \
-    _print(x)
-
-#define dt cout << "HERE!\n";
+#define debug(...) std::cerr << "[DEBUG L:" << __LINE__ << "] " << #__VA_ARGS__ << " = "; _print(__VA_ARGS__)
