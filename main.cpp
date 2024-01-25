@@ -8,7 +8,6 @@
 #include "debug.hpp"
 #else
 #define debug(...)
-#define dt
 #endif
 using namespace std;
 
